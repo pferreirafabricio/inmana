@@ -6,6 +6,14 @@ defmodule InmanaWeb.SuppliesController do
 
   action_fallback FallbackController
 
+  def index(conn, _params) do
+    with {:ok, supplies} <- Inmana.index_supply() do
+      conn
+      |> put_status(:ok)
+      |> render("index.json", supplies: supplies)
+    end
+  end
+
   def create(conn, params) do
     with {:ok, %Supply{} = supply} <- Inmana.create_supply(params) do
       conn
