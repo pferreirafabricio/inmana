@@ -7,7 +7,7 @@
 </p>
 
 ## :open_book: About 
-This project is a simple API to control restaurants' supplies that are about to due in the current week and send email to the restaurants' responsible with the list of supplies. <br />
+This project is a simple API to control restaurants' supplies that are about to due in the current week and send email to the restaurants' managers with the list of supplies. <br />
 
 ## :rosette: API Routes
 ```
