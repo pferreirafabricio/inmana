@@ -7,7 +7,11 @@
 </p>
 
 ## :open_book: About 
-This project is a simple API to control restaurants' supplies that are about to due in the current week and send email to the restaurants' managers with the list of supplies. <br />
+This project is a simple API to control restaurants' supplies that are about to due in the current week and send email to the restaurants' managers with the list of supplies.
+<br /><br />
+<img align="left" src="https://cdn-images-1.medium.com/max/1200/1*TkXVfLTwsHdwpUEjGzdi9w.jpeg" width="50px" />
+This project was developed in [Next Level Week](https://nextlevelweek.com) as the final project.
+<br /><br />
 
 ## :rosette: API Routes
 ```
