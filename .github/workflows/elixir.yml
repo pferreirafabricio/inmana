@@ -7,27 +7,19 @@ on:
     branches: [ main ]
 
 jobs:
-  # Label of the container job
   container-job:
-    # Containers must run in Linux based operating systems
-    runs-on: ubuntu-20.04
-    # Docker Hub image that `container-job` executes in
-    container: ubuntu:20.04
+    runs-on: ubuntu-latest
 
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
-        image: postgres
-        # Provide the password for postgres
+        image: postgres:latest
         env:
           POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
         ports:
-        - 5432
+          - 5432:5432
         volumes:
           - /var/data/postgres:/var/lib/postgresql/data
-        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -38,7 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Set up Elixir
-        uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+        uses: erlef/setup-elixir@main
         with:
           elixir-version: '1.11.2' # Define the elixir version [required]
           otp-version: '23' # Define the OTP version [required]
