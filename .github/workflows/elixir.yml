@@ -7,23 +7,25 @@ on:
     branches: [ main ]
 
 jobs:
-    postgres_container:
-      name: Set up Postgres container
-      runs-on: ubuntu-latest
-        container:
-          image: postgres
-          env:
-            POSTGRES_PASSWORD: postgres
-          ports:
-            - 5432
-          volumes:
-            - /var/data/postgres:/var/lib/postgresql/data
+  postgres_container:
+    name: Set up Postgres container
+    runs-on: ubuntu-latest
+    container:
+      image: postgres
+      env:
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - 5432
+      volumes:
+        - /var/data/postgres:/var/lib/postgresql/data
 
-    vm:
-      name: Build and test
-      runs-on: ubuntu-latest
+  vm:
+    name: Build and test
+    runs-on: ubuntu-latest
 
+    steps:
       - uses: actions/checkout@v2
+
       - name: Set up Elixir
         uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
         with:
