@@ -7,37 +7,41 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
+    postgres_container:
+      name: Set up Postgres container
+      runs-on: ubuntu-latest
+        container:
+          image: postgres
+          env:
+            POSTGRES_PASSWORD: postgres
+          ports:
+            - 5432
+          volumes:
+            - /var/data/postgres:/var/lib/postgresql/data
 
-    name: Build and test
-    runs-on: ubuntu-latest
+    vm:
+      name: Build and test
+      runs-on: ubuntu-latest
 
-    steps:
-    - name: Set up Postgres container
-      container:
-      image: postgres
-      env:
-        POSTGRES_PASSWORD: postgres
-      ports:
-        - 5432
-      volumes:
-        - /var/data/postgres:/var/lib/postgresql/data
+      - uses: actions/checkout@v2
+      - name: Set up Elixir
+        uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
+        with:
+          elixir-version: '1.11.2' # Define the elixir version [required]
+          otp-version: '23' # Define the OTP version [required]
 
-    - uses: actions/checkout@v2
-    - name: Set up Elixir
-      uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
-      with:
-        elixir-version: '1.11.2' # Define the elixir version [required]
-        otp-version: '23' # Define the OTP version [required]
-    - name: Restore dependencies cache
-      uses: actions/cache@v2
-      with:
-        path: deps
-        key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
-        restore-keys: ${{ runner.os }}-mix-
-    - name: Install dependencies
-      run: mix deps.get
-    - name: Create and migrate database
-      run: mix ecto.setup
-    - name: Run tests
-      run: mix test
+      - name: Restore dependencies cache
+        uses: actions/cache@v2
+        with:
+          path: deps
+          key: ${{ runner.os }}-mix-${{ hashFiles('**/mix.lock') }}
+          restore-keys: ${{ runner.os }}-mix-
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Create and migrate database
+        run: mix ecto.setup
+
+      - name: Run tests
+        run: mix test
