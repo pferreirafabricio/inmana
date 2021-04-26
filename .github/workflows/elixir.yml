@@ -7,8 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  postgres_container:
-    name: Set up Postgres container
+  build:
     runs-on: ubuntu-latest
     container:
       image: postgres
@@ -18,12 +17,6 @@ jobs:
         - 5432
       volumes:
         - /var/data/postgres:/var/lib/postgresql/data
-    steps:
-      - run: echo test
-
-  vm:
-    name: Build and test
-    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
