@@ -13,6 +13,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set up Postgres container
+      container:
+      image: postgres
+      env:
+        POSTGRES_PASSWORD: postgres
+      ports:
+        - 5432
+      volumes:
+        - /var/data/postgres:/var/lib/postgresql/data
+
     - uses: actions/checkout@v2
     - name: Set up Elixir
       uses: erlef/setup-elixir@885971a72ed1f9240973bd92ab57af8c1aa68f24
@@ -27,5 +37,7 @@ jobs:
         restore-keys: ${{ runner.os }}-mix-
     - name: Install dependencies
       run: mix deps.get
+    - name: Create and migrate database
+      run: mix ecto.setup
     - name: Run tests
       run: mix test
