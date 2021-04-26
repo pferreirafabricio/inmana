@@ -4,6 +4,7 @@
 </h5>
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/license-MIT-purple">
+  <img alt="License" src="https://github.com/pferreirafabricio/inmana/actions/workflows/elixir.yml/badge.svg?branch=main">
 </p>
 
 ## :open_book: About 
